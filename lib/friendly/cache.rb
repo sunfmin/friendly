@@ -4,10 +4,6 @@ module Friendly
   class Cache < Storage
     class << self
       def cache_for(klass, fields, options)
-        unless fields == [:id]
-          raise NotSupported, "Caching is only possible by id at the moment."
-        end
-
         ByID.new(klass, fields, options)
       end
     end

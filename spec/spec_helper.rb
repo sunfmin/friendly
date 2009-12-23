@@ -64,10 +64,24 @@ class Address
 
   indexes   :user_id
   indexes   :street
+
   caches_by :id
 end
 
 Address.create_tables!
+
+class PhoneNumber
+  include Friendly::Document
+
+  attribute :user_id, Friendly::UUID
+
+  indexes   :user_id
+
+  caches_by :id
+  caches_by :user_id
+end
+
+PhoneNumber.create_tables!
 
 module Mocha
   module API
