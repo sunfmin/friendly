@@ -63,11 +63,11 @@ module Friendly
         @attributes ||= {}
       end
 
-      def first(query)
+      def first(query={})
         storage_proxy.first(query(query))
       end
 
-      def all(query)
+      def all(query={})
         storage_proxy.all(query(query))
       end
 
