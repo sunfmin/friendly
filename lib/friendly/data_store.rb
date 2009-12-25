@@ -24,6 +24,7 @@ module Friendly
 
     def first(persistable, query)
       filtered = dataset(persistable)
+      filtered = filtered.order(query.order) if query.order
       
       if query.conditions.empty?
         filtered.first   
