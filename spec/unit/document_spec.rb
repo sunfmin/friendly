@@ -177,12 +177,18 @@ describe "Friendly::Document" do
       @query             = stub
       @query_klass       = stub
       @klass.query_klass = @query_klass
-      @query_klass.stubs(:new).with(:id => 1).returns(@query)
-      @storage_proxy.stubs(:first).with(@query).returns(@doc)
     end
 
     it "creates a query object and delegates to the storage proxy" do
+      @query_klass.stubs(:new).with(:id => 1).returns(@query)
+      @storage_proxy.stubs(:first).with(@query).returns(@doc)
       @klass.first(:id => 1).should == @doc
+    end
+    
+    it "works without arguments" do
+      @query_klass.stubs(:new).returns(@query)
+      @storage_proxy.stubs(:first).with(@query).returns(@doc)
+      @klass.first.should == @doc
     end
   end
 
@@ -192,12 +198,18 @@ describe "Friendly::Document" do
       @query             = stub
       @query_klass       = stub
       @klass.query_klass = @query_klass
-      @query_klass.stubs(:new).with(:name => "x").returns(@query)
-      @storage_proxy.stubs(:all).with(@query).returns(@docs)
     end
 
     it "delegates to the storage proxy" do
+      @query_klass.stubs(:new).with(:name => "x").returns(@query)
+      @storage_proxy.stubs(:all).with(@query).returns(@docs)
       @klass.all(:name => "x").should == @docs
+    end
+    
+    it "works without arguments" do
+      @query_klass.stubs(:new).returns(@query)
+      @storage_proxy.stubs(:all).with(@query).returns(@docs)
+      @klass.all.should == @docs
     end
   end
 
