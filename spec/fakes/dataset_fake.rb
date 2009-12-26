@@ -1,5 +1,5 @@
 class DatasetFake
-  attr_accessor :where, :insert, :inserts, :update, :updates, :first
+  attr_accessor :where, :insert, :inserts, :update, :updates, :first, :order
 
   def initialize(opts = {})
     opts.each { |k,v| send("#{k}=", v) }
@@ -9,6 +9,10 @@ class DatasetFake
 
   def where(conditions)
     @where.detect { |k,v| k == conditions }.last
+  end
+  
+  def order(conditions)
+    @order.detect { |k,v| k == conditions }.last
   end
 
   def insert(attributes)

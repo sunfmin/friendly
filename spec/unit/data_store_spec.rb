@@ -86,6 +86,21 @@ describe "Friendly::DataStore" do
       @return.should == {:id => 1}
     end
   end
+  
+  describe "retrieving first with an order" do
+    before do
+      @filtered    = stub
+      @filtered.stubs(:first).with(:name => "Stewie").returns({:id => 1})
+      
+      @users.order = {:created_at => @filtered}
+      @query       = query(:name => "Stewie", :order! => :created_at)
+      @return      = @datastore.first(@klass, @query)
+    end
+
+    it "gets the first object matching the conditions from the dataset" do
+      @return.should == {:id => 1}
+    end
+  end
 
   describe "updating data" do
     before do
