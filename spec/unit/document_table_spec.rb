@@ -15,9 +15,11 @@ describe "Friendly::DocumentTable" do
   end
 
   it { should be_satisfies(query(:id => 1)) }
+  it { should be_satisfies(query({})) }
   it { should_not be_satisfies(query(:id => 1, :name => "x")) }
   it { should_not be_satisfies(query(:name => "x")) }
   it { should_not be_satisfies(query(:id => 1, :order! => :created_at.desc)) }
+  it { should_not be_satisfies(query(:order! => :created_at.desc)) }
 
   describe "saving an object" do
     before do
