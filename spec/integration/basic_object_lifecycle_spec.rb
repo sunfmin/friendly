@@ -112,3 +112,45 @@ describe "An object that has a foreign key" do
   end
 end
 
+describe "All queries without conditions" do
+  before do
+    User.all.map(&:destroy)
+    @users = [
+      User.create(:name => "Stewie Griffin"),
+      User.create(:name => "Peter Griffin"),
+      User.create(:name => "Quagmire"),
+    ]
+  end
+  
+  it "returns the whole set of documents" do
+    User.all.should == @users
+  end
+end
+
+
+describe "First queries without conditions" do
+  before do
+    User.all.map(&:destroy)
+    @first = User.create(:name => "Stewie Griffin")
+    User.create(:name => "Peter Griffin")
+  end
+  
+  it "returns the whole set of documents" do
+    User.first.should == @first
+  end
+end
+
+describe "First queries that have an order" do
+  before do
+    User.all.map(&:destroy)
+    @zzzz = User.create(:name => "ZZZZ")
+    @aaaa = User.create(:name => "AAAA")
+    @mmmm = User.create(:name => "MMMM")
+  end
+  
+  it "returns documents in the correct order" do
+    User.first(:order! => :name.desc).should == @zzzz
+    User.first(:order! => :name.asc).should == @aaaa
+  end
+end
+
