@@ -85,7 +85,7 @@ describe "First queries without conditions" do
     User.create(:name => "Peter Griffin")
   end
   
-  it "returns the whole set of documents" do
+  it "returns the first document in the set" do
     User.first.should == @first
   end
 end
