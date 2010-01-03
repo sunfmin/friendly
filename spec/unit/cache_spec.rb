@@ -10,12 +10,4 @@ describe "Friendly::Cache" do
       @cache.should be_instance_of(Friendly::Cache::ByID)
     end
   end
-
-  describe "for other fields" do
-    it "raises NotSupported" do
-      lambda {
-        Friendly::Cache.cache_for(stub, [:asdf], {})
-      }.should raise_error(Friendly::NotSupported)
-    end
-  end
 end
