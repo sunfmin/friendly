@@ -1,4 +1,6 @@
 require 'friendly/storage'
+require 'friendly/cache/arbitrary'
+require 'friendly/cache/by_id'
 
 module Friendly
   class Cache < Storage

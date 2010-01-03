@@ -1,5 +1,5 @@
 module Friendly
-  class Cache
+  class Cache < Storage
     class ByID < Cache
       def store(document)
         cache.set(cache_key(document.id), document)
