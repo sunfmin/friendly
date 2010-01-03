@@ -16,7 +16,7 @@ require 'friendly'
 config = YAML.load(File.read(File.dirname(__FILE__) + "/config.yml"))['test']
 Friendly.configure config
 $db = Friendly.db
-Sequel::MySQL.default_engine = "InnoDB"
+#Sequel::MySQL.default_engine = "InnoDB"
 
 $db.drop_table :users if $db.table_exists?("users")
 $db.drop_table :index_users_on_name if $db.table_exists?("index_users_on_name")

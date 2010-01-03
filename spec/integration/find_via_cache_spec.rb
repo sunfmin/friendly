@@ -91,7 +91,7 @@ describe "Finding objects in the cache" do
     before do
       table = $db.from("index_addresses_on_street")
       table.where(:street => "Quahog").delete
-      table.insert(:street => "Quahog", :id => "12345")
+      table.insert(:street => "Quahog", :id => Friendly::UUID.new)
     end
 
     it "just returns [] silently on #all" do

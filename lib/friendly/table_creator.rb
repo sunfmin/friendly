@@ -22,7 +22,7 @@ module Friendly
       def create_document_table(table)
         db.create_table(table.table_name) do
           primary_key :added_id
-          binary      :id,         :size => 16
+          column      :id, :bytea
           String      :attributes, :text => true
           Time        :created_at
           Time        :updated_at
@@ -33,7 +33,7 @@ module Friendly
         attr = attr_klass # close around this please
 
         db.create_table(table.table_name) do
-          binary :id, :size => 16
+          column      :id, :bytea
           table.fields.flatten.each do |f|    
             klass = table.klass.attributes[f].type
             type  = attr.custom_type?(klass) ? attr.sql_type(klass) : klass

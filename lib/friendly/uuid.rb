@@ -143,6 +143,6 @@ module Friendly
   end
 end
 
-Friendly::Attribute.register_type(Friendly::UUID, 'binary(16)') do |s|
+Friendly::Attribute.register_type(Friendly::UUID, 'bytea') do |s|
   Friendly::UUID.new(s)
 end
