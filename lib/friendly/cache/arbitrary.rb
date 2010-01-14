@@ -7,16 +7,25 @@ module Friendly
       end
 
       def update(document)
-        old_key  = old_key(document)
-        existing = cache.get(old_key)
-        if existing
-          existing.delete(document.id)
-          cache.set(old_key, existing)
-        end
+        old_key = old_key(document)
+        remove_from_cache(old_key, document)
         create(document)
       end
 
+      def destroy(document)
+        remove_from_cache(cache_key(document), document)
+      end
+
       protected
+        def remove_from_cache(key, document)
+          existing = cache.get(key)
+
+          if existing
+            existing.delete(document.id)
+            cache.set(key, existing)
+          end
+        end
+
         def make_key(document, &block)
           key = [klass.name, version]
           fields.inject(key, &block).join("/")

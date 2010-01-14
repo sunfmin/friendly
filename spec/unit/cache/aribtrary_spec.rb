@@ -4,6 +4,7 @@ describe "Friendly::Cache::Arbitrary" do
   def cache_key(name)
     ["User", 0, "name", name].join("/")
   end
+
   before do
     @klass     = stub(:name => "User")
     @memcached = stub(:set => nil, :get => nil)
@@ -69,6 +70,37 @@ describe "Friendly::Cache::Arbitrary" do
       it "adds the object from the new cache key" do
         @memcached.should have_received(:set).once
         @memcached.should have_received(:set).with(@new_key, [@id])
+      end
+    end
+  end
+
+  describe "#delete" do
+    before do
+      @doc = stub(:name    => "James", :attribute_was => "Bond", 
+                  :changed => [:name], :id            => @id,
+                  :attribute_changed? => true)
+      @key = cache_key("James")
+    end
+
+    describe "when there's something in the cache" do
+      before do
+        @memcached.stubs(:get).with(@key).returns([@doc.id])
+        @cache.destroy(@doc)
+      end
+
+      it "deletes the item from the cache" do
+        @memcached.should have_received(:set).with(@key, [])
+      end
+    end
+
+    describe "when there's nothing in the cache" do
+      before do
+        @memcached.stubs(:get).with(@key).returns(nil)
+        @cache.destroy(@doc)
+      end
+
+      it "does nothing" do
+        @memcached.should have_received(:set).never
       end
     end
   end
