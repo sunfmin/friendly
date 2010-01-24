@@ -1,5 +1,6 @@
 require 'friendly/associations'
 require 'friendly/attribute'
+require 'friendly/benchmarking'
 require 'friendly/boolean'
 require 'friendly/cache'
 require 'friendly/cache/by_id'
