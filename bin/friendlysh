@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'friendly'
+require 'friendly/shell'
