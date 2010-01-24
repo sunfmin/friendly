@@ -4,6 +4,7 @@ require 'friendly/document/attributes'
 require 'friendly/document/convenience'
 require 'friendly/document/scoping'
 require 'friendly/document/storage'
+require 'friendly/logging'
 
 module Friendly
   module Document
