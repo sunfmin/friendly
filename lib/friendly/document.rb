@@ -39,6 +39,7 @@ module Friendly
 
     include Associations
     include Convenience
+    include Logging
     include Scoping
     include Storage
     include Attributes

@@ -7,6 +7,8 @@ require 'friendly/data_store'
 require 'friendly/document'
 require 'friendly/document_table'
 require 'friendly/index'
+require 'friendly/logger'
+require 'friendly/logging'
 require 'friendly/memcached'
 require 'friendly/query'
 require 'friendly/sequel_monkey_patches'
@@ -22,11 +24,13 @@ require 'will_paginate/collection'
 
 module Friendly
   class << self
-    attr_accessor :datastore, :db, :cache
+    attr_accessor :datastore, :db, :cache, :logger
 
     def configure(config)
-      self.db        = Sequel.connect(config)
-      self.datastore = DataStore.new(db)
+      config[:logger] ||= Friendly::Logger.new("/dev/null", Logger::INFO)
+      self.logger       = config[:logger]
+      self.db           = Sequel.connect(config)
+      self.datastore    = DataStore.new(db)
     end
 
     def batch
