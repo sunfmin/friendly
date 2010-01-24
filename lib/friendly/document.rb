@@ -1,6 +1,7 @@
 require 'active_support/inflector'
 require 'friendly/document/associations'
 require 'friendly/document/attributes'
+require 'friendly/document/benchmarking'
 require 'friendly/document/convenience'
 require 'friendly/document/scoping'
 require 'friendly/document/storage'
@@ -39,11 +40,13 @@ module Friendly
     end
 
     include Associations
-    include Convenience
     include Logging
+    include Friendly::Benchmarking
+    include Convenience
     include Scoping
     include Storage
     include Attributes
+    include Benchmarking
 
     def table_name
       self.class.table_name
