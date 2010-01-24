@@ -5,7 +5,7 @@ module Friendly
     def benchmark(title, level = Logger::DEBUG)
       if logger.level <= level
         ms = benchmark_klass.ms { yield }
-        logger.add(level, "%s (%.1fms)" % [title, ms])
+        logger.add(level, title.gsub(/:time/, "(%.1fms)" % ms))
       else
         yield
       end

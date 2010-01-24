@@ -17,12 +17,12 @@ describe "Friendly::Benchmarking" do
       @logger          = stub(:level => Logger::DEBUG, :add => true)
       @benchmark_klass = Class.new { def ms; yield; 5; end }.new
       @benchmarker     = BenchmarksStuff.new(@logger, @benchmark_klass)
-      @benchmarker.benchmark("User created.") do
+      @benchmarker.benchmark("User created. :time") do
 
       end
     end
 
-    it "benchmarks and logs" do
+    it "logs and substitutes the time in to the title" do
       @logger.should have_received(:add).
                       with(Logger::DEBUG, "User created. (5.0ms)")
     end
