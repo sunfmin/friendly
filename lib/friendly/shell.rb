@@ -2,8 +2,9 @@ require 'irb'
 require 'memcached'
 
 $logger = Friendly::Logger.new(STDOUT)
-Friendly.configure :adapter => "sqlite",
-                   :logger  => $logger
+Friendly.configure :adapter       => "sqlite",
+                   :logger        => $logger,
+                   :benchmark_sql => true
 
 $cache = Memcached.new
 
