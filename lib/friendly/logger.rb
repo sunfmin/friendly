@@ -1,3 +1,4 @@
+require 'colored'
 require 'logger'
 
 module Friendly
