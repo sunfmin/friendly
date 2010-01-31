@@ -36,7 +36,9 @@ module Friendly
     end
 
     def add(*args)
-      tables << storage_factory.index(klass, *args)
+      index = storage_factory.index(klass, *args)
+      tables << index
+      index
     end
 
     def cache(fields, options = {})

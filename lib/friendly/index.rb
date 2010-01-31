@@ -10,8 +10,12 @@ module Friendly
       @datastore = datastore
     end
 
+    def set_table_name(new_table_name)
+      @table_name = new_table_name.to_s
+    end
+
     def table_name
-      ["index", klass.table_name, "on", fields.join("_and_")].join("_")
+      @table_name || ["index", klass.table_name, "on", fields.join("_and_")].join("_")
     end
 
     def satisfies?(query)

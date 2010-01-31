@@ -62,3 +62,34 @@ describe "Creating the tables for a model" do
     }.should_not raise_error
   end
 end
+
+describe "Creating index table with customized table name" do
+  before do
+    class LongIndexTableName
+      include Friendly::Document
+      attribute :this_is_pretty_long_1,       String
+      attribute :this_is_pretty_long_2,        Integer
+      attribute :this_is_pretty_long_3,        Integer
+    end
+    class LongIndexTableNameWorkedWithCustomizedTableName
+      include Friendly::Document
+      attribute :this_is_pretty_long_1,       String
+      attribute :this_is_pretty_long_2,        Integer
+      attribute :this_is_pretty_long_3,        Integer
+    end
+  end
+  it "failed create table with long index table name" do
+    begin
+      LongIndexTableName.indexes :this_is_pretty_long_1, :this_is_pretty_long_2, :this_is_pretty_long_3
+      LongIndexTableName.create_tables!
+    rescue Exception => e
+      e.message.should include("Incorrect table name")
+    end
+  end
+  it "can create index table with customized table name" do
+    LongIndexTableNameWorkedWithCustomizedTableName.indexes(:this_is_pretty_long_1, :this_is_pretty_long_2, :this_is_pretty_long_3).set_table_name(:index_on_losts_attributes)
+    LongIndexTableNameWorkedWithCustomizedTableName.create_tables!
+    Friendly.db.schema(:index_on_losts_attributes).should_not == nil
+  end
+end
+
